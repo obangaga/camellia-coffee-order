@@ -113,6 +113,12 @@ const menuData = {
     ]
 };
 
+// ✅✅✅ KONFIGURASI TELEGRAM BOT - UBAH DI SINI ✅✅✅
+const TELEGRAM_CONFIG = {
+    botToken: '8005976774:AAFMI-ZmcYPTq9QtTDZQ-lkOMjYEomzcU6k', // Ganti dengan Bot Token dari @BotFather
+    chatId: '7699020587' // Ganti dengan Chat ID kasir
+};
+
 class CoffeeOrderApp {
     constructor() {
         this.cart = [];
@@ -183,7 +189,6 @@ class CoffeeOrderApp {
     }
 
     setupEventListeners() {
-        // Category buttons
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -193,22 +198,18 @@ class CoffeeOrderApp {
             });
         });
 
-        // Cart icon
         document.getElementById('cartIcon').addEventListener('click', () => {
             this.toggleCart();
         });
 
-        // Close cart
         document.getElementById('closeCart').addEventListener('click', () => {
             this.toggleCart();
         });
 
-        // Overlay
         document.getElementById('overlay').addEventListener('click', () => {
             this.toggleCart();
         });
 
-        // Add to cart (delegation)
         document.getElementById('menuGrid').addEventListener('click', (e) => {
             if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
                 const button = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
@@ -217,7 +218,6 @@ class CoffeeOrderApp {
             }
         });
 
-        // Checkout
         document.getElementById('checkoutBtn').addEventListener('click', () => {
             this.checkout();
         });
@@ -346,7 +346,7 @@ class CoffeeOrderApp {
         }
     }
 
-    checkout() {
+    async checkout() {
         if (this.cart.length === 0) {
             this.showNotification('Keranjang masih kosong!', 'error');
             return;
@@ -356,9 +356,10 @@ class CoffeeOrderApp {
         const orderId = 'ORD' + Date.now().toString().slice(-6);
         const timestamp = new Date().toLocaleString('id-ID');
         
+        // Format pesanan untuk Telegram
         let message = `🆕 *PESANAN BARU - Camellia Coffee* 🆕\n`;
-        message += `🆔 Order ID: ${orderId}\n`;
-        message += `⏰ Waktu: ${timestamp}\n`;
+        message += `🆔 *Order ID:* ${orderId}\n`;
+        message += `⏰ *Waktu:* ${timestamp}\n`;
         message += `═══════════════════════\n\n`;
         message += `📋 *DETAIL PESANAN:*\n`;
         
@@ -371,28 +372,28 @@ class CoffeeOrderApp {
         message += `═══════════════════════\n`;
         message += `\n_📱 Pesanan ini dikirim otomatis dari Camellia Coffee App_`;
 
-        // ✅✅✅ UBAH NOMOR WHATSAPP KASIR DI SINI ✅✅✅
-        const phoneNumber = '6285198257241'; // Ganti dengan nomor WhatsApp kasir
-        
         try {
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            // Kirim ke Telegram
+            const success = await this.sendToTelegram(message);
             
-            // Buka WhatsApp
-            window.open(whatsappUrl, '_blank');
-            
-            // Tampilkan modal sukses
-            this.showSuccessModal();
-            
-            // Reset cart
-            this.cart = [];
-            this.updateCartCount();
-            this.updateCartDisplay();
-            this.saveCartToStorage();
-            this.toggleCart();
-            
-            // Simpan riwayat
-            this.saveOrderHistory(orderId, message);
+            if (success) {
+                // Tampilkan modal sukses
+                this.showSuccessModal();
+                
+                // Reset cart
+                this.cart = [];
+                this.updateCartCount();
+                this.updateCartDisplay();
+                this.saveCartToStorage();
+                this.toggleCart();
+                
+                // Simpan riwayat
+                this.saveOrderHistory(orderId, message);
+                
+                this.showNotification('Pesanan terkirim otomatis ke kasir! ✅', 'success');
+            } else {
+                this.showNotification('Gagal mengirim pesanan ke kasir', 'error');
+            }
             
         } catch (error) {
             console.error('Error during checkout:', error);
@@ -400,11 +401,35 @@ class CoffeeOrderApp {
         }
     }
 
+    async sendToTelegram(message) {
+        try {
+            const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CONFIG.chatId,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            });
+
+            const data = await response.json();
+            return data.ok === true;
+            
+        } catch (error) {
+            console.error('Error sending to Telegram:', error);
+            return false;
+        }
+    }
+
     showSuccessModal() {
         const modal = document.getElementById('successModal');
         modal.style.display = 'flex';
         
-        // Auto close setelah 5 detik
         setTimeout(() => {
             closeModal();
         }, 5000);
@@ -460,13 +485,11 @@ class CoffeeOrderApp {
     }
 }
 
-// Function untuk close modal
 function closeModal() {
     const modal = document.getElementById('successModal');
     modal.style.display = 'none';
 }
 
-// Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new CoffeeOrderApp();
 });
