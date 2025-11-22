@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoffeeSpace - Order Online</title>
+    <meta name="description" content="Camellia Coffee - Order kopi online dengan mudah dan cepat">
+    <title>Camellia Coffee - Order Online</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -13,7 +14,7 @@
         <header class="header">
             <div class="logo">
                 <i class="fas fa-mug-hot"></i>
-                <span>CoffeeSpace</span>
+                <span>Camellia Coffee</span>
             </div>
             <div class="cart-icon" id="cartIcon">
                 <i class="fas fa-shopping-cart"></i>
@@ -42,7 +43,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>&copy; 2024 CoffeeSpace. All rights reserved.</p>
+            <p>&copy; 2024 Camellia Coffee. All rights reserved.</p>
         </footer>
     </div>
 
@@ -57,12 +58,24 @@
         </div>
         <div class="cart-total">
             <h4>Total: Rp <span id="totalAmount">0</span></h4>
-            <button class="checkout-btn" id="checkoutBtn">Checkout via WhatsApp</button>
+            <button class="checkout-btn" id="checkoutBtn">
+                <i class="fab fa-whatsapp"></i> Checkout ke WhatsApp
+            </button>
         </div>
     </div>
 
     <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
+
+    <!-- Order Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">✅</div>
+            <h3>Pesanan Terkirim!</h3>
+            <p>Pesanan telah dikirim otomatis ke kasir. Terima kasih!</p>
+            <button class="modal-close-btn" onclick="closeModal()">Tutup</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
