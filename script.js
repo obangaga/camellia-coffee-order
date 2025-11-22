@@ -321,7 +321,7 @@ class CoffeeOrderApp {
         // Encode message for WhatsApp URL
         const phoneNumber = '6285198257241'
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
         // Open WhatsApp in new tab
         window.open(whatsappUrl, '_blank');
