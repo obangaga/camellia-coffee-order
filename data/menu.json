@@ -1,0 +1,115 @@
+{
+  "menu": {
+    "coffee": [
+      {
+        "id": 1,
+        "name": "Americano",
+        "description": "Espresso dengan air panas, rasa kopi yang kuat dan pure",
+        "price": 25000,
+        "category": "coffee"
+      },
+      {
+        "id": 2,
+        "name": "Cappuccino",
+        "description": "Espresso dengan steamed milk dan foam yang creamy",
+        "price": 30000,
+        "category": "coffee"
+      },
+      {
+        "id": 3,
+        "name": "Latte",
+        "description": "Espresso dengan lebih banyak steamed milk dan sedikit foam",
+        "price": 32000,
+        "category": "coffee"
+      },
+      {
+        "id": 4,
+        "name": "Espresso",
+        "description": "Kopi murni yang kuat dan concentrated",
+        "price": 20000,
+        "category": "coffee"
+      },
+      {
+        "id": 5,
+        "name": "Mocha",
+        "description": "Perpaduan espresso, coklat, dan steamed milk",
+        "price": 35000,
+        "category": "coffee"
+      },
+      {
+        "id": 6,
+        "name": "Macchiato",
+        "description": "Espresso dengan sedikit foam milk",
+        "price": 28000,
+        "category": "coffee"
+      }
+    ],
+    "non-coffee": [
+      {
+        "id": 7,
+        "name": "Hot Chocolate",
+        "description": "Coklat panas dengan whipped cream",
+        "price": 28000,
+        "category": "non-coffee"
+      },
+      {
+        "id": 8,
+        "name": "Matcha Latte",
+        "description": "Matcha premium dengan steamed milk",
+        "price": 32000,
+        "category": "non-coffee"
+      },
+      {
+        "id": 9,
+        "name": "Red Velvet",
+        "description": "Minuman creamy dengan rasa red velvet yang unik",
+        "price": 35000,
+        "category": "non-coffee"
+      },
+      {
+        "id": 10,
+        "name": "Taro Latte",
+        "description": "Latte dengan rasa taro yang manis dan creamy",
+        "price": 30000,
+        "category": "non-coffee"
+      }
+    ],
+    "tea": [
+      {
+        "id": 11,
+        "name": "Lemon Tea",
+        "description": "Teh segar dengan perasan lemon",
+        "price": 20000,
+        "category": "tea"
+      },
+      {
+        "id": 12,
+        "name": "Peach Tea",
+        "description": "Teh dengan rasa peach yang menyegarkan",
+        "price": 22000,
+        "category": "tea"
+      },
+      {
+        "id": 13,
+        "name": "Green Tea",
+        "description": "Teh hijau murni yang menyehatkan",
+        "price": 18000,
+        "category": "tea"
+      },
+      {
+        "id": 14,
+        "name": "Thai Tea",
+        "description": "Teh Thailand dengan rasa yang khas",
+        "price": 25000,
+        "category": "tea"
+      },
+      {
+        "id": 15,
+        "name": "Jasmine Tea",
+        "description": "Teh melati dengan aroma yang harum",
+        "price": 20000,
+        "category": "tea"
+      }
+    ]
+  }
+}
