@@ -117,13 +117,32 @@ class CoffeeOrderApp {
     constructor() {
         this.cart = [];
         this.currentCategory = 'all';
+        this.isLoading = false;
         this.init();
     }
 
     init() {
-        this.loadMenu();
-        this.setupEventListeners();
-        this.updateCartCount();
+        try {
+            this.loadMenu();
+            this.setupEventListeners();
+            this.updateCartCount();
+            this.loadCartFromStorage();
+        } catch (error) {
+            console.error('Error initializing app:', error);
+            this.showNotification('Error memuat aplikasi', 'error');
+        }
+    }
+
+    loadCartFromStorage() {
+        const savedCart = localStorage.getItem('camellia-coffee-cart');
+        if (savedCart) {
+            this.cart = JSON.parse(savedCart);
+            this.updateCartCount();
+        }
+    }
+
+    saveCartToStorage() {
+        localStorage.setItem('camellia-coffee-cart', JSON.stringify(this.cart));
     }
 
     loadMenu() {
@@ -205,32 +224,45 @@ class CoffeeOrderApp {
     }
 
     addToCart(itemId) {
-        // Find item in all categories
-        let item = null;
-        for (const category in menuData) {
-            item = menuData[category].find(i => i.id === itemId);
-            if (item) break;
-        }
-
-        if (!item) return;
-
-        const existingItem = this.cart.find(cartItem => cartItem.id === itemId);
+        if (this.isLoading) return;
         
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            this.cart.push({
-                ...item,
-                quantity: 1
-            });
-        }
+        try {
+            this.isLoading = true;
+            
+            let item = null;
+            for (const category in menuData) {
+                item = menuData[category].find(i => i.id === itemId);
+                if (item) break;
+            }
 
-        this.updateCartCount();
-        this.showNotification(`${item.name} ditambahkan ke keranjang!`);
-        
-        // If cart is open, update cart display
-        if (document.getElementById('cartSidebar').classList.contains('active')) {
-            this.updateCartDisplay();
+            if (!item) {
+                this.showNotification('Menu tidak ditemukan', 'error');
+                return;
+            }
+
+            const existingItem = this.cart.find(cartItem => cartItem.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                this.cart.push({
+                    ...item,
+                    quantity: 1
+                });
+            }
+
+            this.updateCartCount();
+            this.saveCartToStorage();
+            this.showNotification(`${item.name} ditambahkan ke keranjang!`, 'success');
+            
+            if (document.getElementById('cartSidebar').classList.contains('active')) {
+                this.updateCartDisplay();
+            }
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+            this.showNotification('Error menambahkan ke keranjang', 'error');
+        } finally {
+            this.isLoading = false;
         }
     }
 
@@ -238,6 +270,8 @@ class CoffeeOrderApp {
         this.cart = this.cart.filter(item => item.id !== itemId);
         this.updateCartCount();
         this.updateCartDisplay();
+        this.saveCartToStorage();
+        this.showNotification('Item dihapus dari keranjang', 'info');
     }
 
     updateQuantity(itemId, change) {
@@ -249,6 +283,7 @@ class CoffeeOrderApp {
             } else {
                 this.updateCartCount();
                 this.updateCartDisplay();
+                this.saveCartToStorage();
             }
         }
     }
@@ -263,7 +298,13 @@ class CoffeeOrderApp {
         const totalAmount = document.getElementById('totalAmount');
 
         if (this.cart.length === 0) {
-            cartItems.innerHTML = '<p style="text-align: center; color: #666; padding: 40px 0;">Keranjang masih kosong</p>';
+            cartItems.innerHTML = `
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Keranjang masih kosong</p>
+                    <small>Tambahkan menu favorit Anda</small>
+                </div>
+            `;
             totalAmount.textContent = '0';
             return;
         }
@@ -275,9 +316,13 @@ class CoffeeOrderApp {
                     <p class="item-price">Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</p>
                 </div>
                 <div class="cart-item-controls">
-                    <button class="quantity-btn" onclick="app.updateQuantity(${item.id}, -1)">-</button>
-                    <span style="margin: 0 10px; font-weight: bold;">${item.quantity}</span>
-                    <button class="quantity-btn" onclick="app.updateQuantity(${item.id}, 1)">+</button>
+                    <button class="quantity-btn" onclick="app.updateQuantity(${item.id}, -1)">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <span style="margin: 0 10px; font-weight: bold; min-width: 30px; text-align: center;">${item.quantity}</span>
+                    <button class="quantity-btn" onclick="app.updateQuantity(${item.id}, 1)">
+                        <i class="fas fa-plus"></i>
+                    </button>
                     <button class="remove-item" onclick="app.removeFromCart(${item.id})">
                         <i class="fas fa-trash"></i>
                     </button>
@@ -303,46 +348,90 @@ class CoffeeOrderApp {
 
     checkout() {
         if (this.cart.length === 0) {
-            alert('Keranjang masih kosong!');
+            this.showNotification('Keranjang masih kosong!', 'error');
             return;
         }
 
         const total = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const orderId = 'ORD' + Date.now().toString().slice(-6);
+        const timestamp = new Date().toLocaleString('id-ID');
         
-        let message = `Halo CoffeeSpace! Saya ingin memesan:\n\n`;
+        let message = `🆕 *PESANAN BARU - Camellia Coffee* 🆕\n`;
+        message += `🆔 Order ID: ${orderId}\n`;
+        message += `⏰ Waktu: ${timestamp}\n`;
+        message += `═══════════════════════\n\n`;
+        message += `📋 *DETAIL PESANAN:*\n`;
         
-        this.cart.forEach(item => {
-            message += `• ${item.name} x${item.quantity} - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}\n`;
+        this.cart.forEach((item, index) => {
+            message += `▫️ ${item.name} x${item.quantity} = Rp ${(item.price * item.quantity).toLocaleString('id-ID')}\n`;
         });
         
-        message += `\nTotal: Rp ${total.toLocaleString('id-ID')}`;
-        message += `\n\nTerima kasih!`;
+        message += `\n═══════════════════════\n`;
+        message += `💰 *TOTAL: Rp ${total.toLocaleString('id-ID')}*\n`;
+        message += `═══════════════════════\n`;
+        message += `\n_📱 Pesanan ini dikirim otomatis dari Camellia Coffee App_`;
 
-        // Encode message for WhatsApp URL
-        const phoneNumber = '6285198257241'
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-        // Open WhatsApp in new tab
-        window.open(whatsappUrl, '_blank');
-
-        // Reset cart after checkout
-        this.cart = [];
-        this.updateCartCount();
-        this.updateCartDisplay();
-        this.toggleCart();
+        // ✅✅✅ UBAH NOMOR WHATSAPP KASIR DI SINI ✅✅✅
+        const phoneNumber = '6285198257241'; // Ganti dengan nomor WhatsApp kasir
         
-        this.showNotification('Pesanan berhasil dikirim via WhatsApp!');
+        try {
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Buka WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Tampilkan modal sukses
+            this.showSuccessModal();
+            
+            // Reset cart
+            this.cart = [];
+            this.updateCartCount();
+            this.updateCartDisplay();
+            this.saveCartToStorage();
+            this.toggleCart();
+            
+            // Simpan riwayat
+            this.saveOrderHistory(orderId, message);
+            
+        } catch (error) {
+            console.error('Error during checkout:', error);
+            this.showNotification('Error mengirim pesanan', 'error');
+        }
     }
 
-    showNotification(message) {
-        // Create notification element
+    showSuccessModal() {
+        const modal = document.getElementById('successModal');
+        modal.style.display = 'flex';
+        
+        // Auto close setelah 5 detik
+        setTimeout(() => {
+            closeModal();
+        }, 5000);
+    }
+
+    saveOrderHistory(orderId, message) {
+        const orderHistory = {
+            id: orderId,
+            timestamp: new Date().toISOString(),
+            message: message,
+            items: [...this.cart]
+        };
+        
+        const history = JSON.parse(localStorage.getItem('camellia-order-history') || '[]');
+        history.unshift(orderHistory);
+        localStorage.setItem('camellia-order-history', JSON.stringify(history.slice(0, 50)));
+    }
+
+    showNotification(message, type = 'success') {
         const notification = document.createElement('div');
+        const bgColor = type === 'error' ? '#E74C3C' : type === 'info' ? '#3498DB' : '#27AE60';
+        
         notification.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #27AE60;
+            background: ${bgColor};
             color: white;
             padding: 15px 25px;
             border-radius: 10px;
@@ -350,24 +439,31 @@ class CoffeeOrderApp {
             z-index: 1001;
             transform: translateX(400px);
             transition: transform 0.3s ease;
+            max-width: 300px;
         `;
         notification.textContent = message;
 
         document.body.appendChild(notification);
 
-        // Animate in
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
         }, 100);
 
-        // Remove after 3 seconds
         setTimeout(() => {
             notification.style.transform = 'translateX(400px)';
             setTimeout(() => {
-                document.body.removeChild(notification);
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
             }, 300);
         }, 3000);
     }
+}
+
+// Function untuk close modal
+function closeModal() {
+    const modal = document.getElementById('successModal');
+    modal.style.display = 'none';
 }
 
 // Initialize app when DOM is loaded
