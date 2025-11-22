@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffeeSpace - Order Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-mug-hot"></i>
+                <span>CoffeeSpace</span>
+            </div>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Specialty Coffee & Tea</h1>
+            <p>Racikan spesial untuk hari yang lebih baik</p>
+        </section>
+
+        <!-- Kategori -->
+        <section class="categories">
+            <button class="category-btn active" data-category="all">All Menu</button>
+            <button class="category-btn" data-category="coffee">Coffee</button>
+            <button class="category-btn" data-category="non-coffee">Non Coffee</button>
+            <button class="category-btn" data-category="tea">Tea Series</button>
+        </section>
+
+        <!-- Menu Items -->
+        <section class="menu-grid" id="menuGrid">
+            <!-- Menu items akan di-load via JavaScript -->
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 CoffeeSpace. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Order</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items akan dimuat di sini -->
+        </div>
+        <div class="cart-total">
+            <h4>Total: Rp <span id="totalAmount">0</span></h4>
+            <button class="checkout-btn" id="checkoutBtn">Checkout via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
