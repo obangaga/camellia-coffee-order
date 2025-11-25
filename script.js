@@ -262,8 +262,8 @@ const menuData = {
 
 // ✅✅✅ KONFIGURASI TELEGRAM BOT - UBAH DI SINI ✅✅✅
 const TELEGRAM_CONFIG = {
-    botToken: '6543219876:AAEfGHiJkLmNoPqRsTuVwXyZ123456789', // Token dari BotFather
-    chatId: '123456789' // Chat ID kasir
+    botToken: '8005976774:AAFMI-ZmcYPTq9QtTDZQ-lkOMjYEomzcU6k', // Token dari BotFather
+    chatId: '7699020587' // Chat ID kasir
 };
 
 class CoffeeOrderApp {
