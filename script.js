@@ -1,122 +1,269 @@
-// Data menu
+// Data menu lengkap berdasarkan menu asli Camellia Coffee
 const menuData = {
     "coffee": [
         {
             "id": 1,
-            "name": "Americano",
-            "description": "Espresso dengan air panas, rasa kopi yang kuat dan pure",
-            "price": 25000,
-            "category": "coffee"
+            "name": "Camelliano",
+            "description": "Signature coffee dengan rasa yang seimbang",
+            "price": 24200,
+            "category": "coffee",
+            "icon": "fa-crown",
+            "variants": ["Hot", "Ice"]
         },
         {
             "id": 2,
-            "name": "Cappuccino",
-            "description": "Espresso dengan steamed milk dan foam yang creamy",
-            "price": 30000,
-            "category": "coffee"
+            "name": "Camelliano Rempah",
+            "description": "Signature coffee dengan rempah khas",
+            "price": 26400,
+            "category": "coffee",
+            "icon": "fa-star",
+            "variants": ["Hot"]
         },
         {
             "id": 3,
-            "name": "Latte",
-            "description": "Espresso dengan lebih banyak steamed milk dan sedikit foam",
-            "price": 32000,
-            "category": "coffee"
+            "name": "Espresso",
+            "description": "Kopi murni yang kuat dan concentrated",
+            "price": 15400,
+            "category": "coffee",
+            "icon": "fa-coffee",
+            "variants": ["Hot"]
         },
         {
             "id": 4,
-            "name": "Espresso",
-            "description": "Kopi murni yang kuat dan concentrated",
-            "price": 20000,
-            "category": "coffee"
+            "name": "Americano",
+            "description": "Espresso dengan air panas, rasa kopi yang kuat",
+            "price": 19800,
+            "category": "coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
         },
         {
             "id": 5,
-            "name": "Mocha",
+            "name": "Mocha Latte Classic",
             "description": "Perpaduan espresso, coklat, dan steamed milk",
-            "price": 35000,
-            "category": "coffee"
+            "price": 24200,
+            "category": "coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
         },
         {
             "id": 6,
-            "name": "Macchiato",
-            "description": "Espresso dengan sedikit foam milk",
-            "price": 28000,
-            "category": "coffee"
+            "name": "Caramel Machiato",
+            "description": "Espresso dengan caramel dan foam milk",
+            "price": 26400,
+            "category": "coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
+        },
+        {
+            "id": 7,
+            "name": "Vanilla Café Latte",
+            "description": "Latte dengan rasa vanilla yang lembut",
+            "price": 26400,
+            "category": "coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
+        },
+        {
+            "id": 8,
+            "name": "Kopi Susu Klasik",
+            "description": "Kopi dengan susu klasik Indonesia",
+            "price": 26400,
+            "category": "coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
+        },
+        {
+            "id": 9,
+            "name": "Kopi Pandan Latte",
+            "description": "Kopi dengan aroma pandan yang khas",
+            "price": 24200,
+            "category": "coffee",
+            "icon": "fa-leaf",
+            "variants": ["Hot", "Ice"]
+        },
+        {
+            "id": 10,
+            "name": "Kopi Kurma",
+            "description": "Kopi dengan rasa kurma alami",
+            "price": 27500,
+            "category": "coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
+        },
+        {
+            "id": 11,
+            "name": "Kopi Kurma (B)",
+            "description": "Kopi kurma ukuran besar",
+            "price": 49500,
+            "category": "coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
+        },
+        {
+            "id": 12,
+            "name": "Banana Latte",
+            "description": "Latte dengan rasa pisang yang creamy",
+            "price": 26400,
+            "category": "coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
+        },
+        {
+            "id": 13,
+            "name": "Butter Scot Latte",
+            "description": "Latte dengan rasa butter scotch yang manis",
+            "price": 26400,
+            "category": "coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
+        },
+        {
+            "id": 14,
+            "name": "Spanish Latte",
+            "description": "Latte ala Spanyol yang creamy dan manis",
+            "price": 26400,
+            "category": "coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
+        }
+    ],
+    "brew": [
+        {
+            "id": 15,
+            "name": "V60",
+            "description": "Manual brew dengan metode V60",
+            "price": 24200,
+            "category": "brew",
+            "icon": "fa-filter",
+            "variants": ["Hot", "Ice"]
+        },
+        {
+            "id": 16,
+            "name": "Tubruk (Houseblend)",
+            "description": "Kopi tubruk dengan houseblend",
+            "price": 18700,
+            "category": "brew",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot"]
+        },
+        {
+            "id": 17,
+            "name": "Tubruk (Arabica)",
+            "description": "Kopi tubruk dengan biji arabica",
+            "price": 18700,
+            "category": "brew",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot"]
+        },
+        {
+            "id": 18,
+            "name": "Vietnam Drip",
+            "description": "Kopi Vietnam dengan drip tradisional",
+            "price": 18700,
+            "category": "brew",
+            "icon": "fa-tint",
+            "variants": ["Hot", "Ice"]
+        },
+        {
+            "id": 19,
+            "name": "Lemon Coffee Ice",
+            "description": "Kopi dingin dengan perasan lemon",
+            "price": 24200,
+            "category": "brew",
+            "icon": "fa-glass-whiskey",
+            "variants": ["Ice"]
+        },
+        {
+            "id": 20,
+            "name": "Japanese Ice Coffee with Lemon",
+            "description": "Kopi Jepang dingin dengan lemon",
+            "price": 24200,
+            "category": "brew",
+            "icon": "fa-glass-whiskey",
+            "variants": ["Ice"]
         }
     ],
     "non-coffee": [
         {
-            "id": 7,
-            "name": "Hot Chocolate",
-            "description": "Coklat panas dengan whipped cream",
-            "price": 28000,
-            "category": "non-coffee"
+            "id": 21,
+            "name": "Chocolate Mint",
+            "description": "Coklat dengan rasa mint yang menyegarkan",
+            "price": 26400,
+            "category": "non-coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
         },
         {
-            "id": 8,
-            "name": "Matcha Latte",
-            "description": "Matcha premium dengan steamed milk",
-            "price": 32000,
-            "category": "non-coffee"
+            "id": 22,
+            "name": "Chocolate",
+            "description": "Coklat panas klasik",
+            "price": 24200,
+            "category": "non-coffee",
+            "icon": "fa-mug-hot",
+            "variants": ["Hot", "Ice"]
         },
         {
-            "id": 9,
+            "id": 23,
             "name": "Red Velvet",
-            "description": "Minuman creamy dengan rasa red velvet yang unik",
-            "price": 35000,
-            "category": "non-coffee"
+            "description": "Minuman creamy dengan rasa red velvet",
+            "price": 24200,
+            "category": "non-coffee",
+            "icon": "fa-glass-whiskey",
+            "variants": ["Hot", "Ice"]
         },
         {
-            "id": 10,
-            "name": "Taro Latte",
-            "description": "Latte dengan rasa taro yang manis dan creamy",
-            "price": 30000,
-            "category": "non-coffee"
-        }
-    ],
-    "tea": [
-        {
-            "id": 11,
-            "name": "Lemon Tea",
-            "description": "Teh segar dengan perasan lemon",
-            "price": 20000,
-            "category": "tea"
+            "id": 24,
+            "name": "Strawberry Mint Tea",
+            "description": "Teh strawberry dengan mint segar",
+            "price": 24200,
+            "category": "non-coffee",
+            "icon": "fa-glass-whiskey",
+            "variants": ["Hot", "Ice"]
         },
         {
-            "id": 12,
-            "name": "Peach Tea",
-            "description": "Teh dengan rasa peach yang menyegarkan",
-            "price": 22000,
-            "category": "tea"
+            "id": 25,
+            "name": "Ice Mint Tea",
+            "description": "Teh mint dingin yang menyegarkan",
+            "price": 24200,
+            "category": "non-coffee",
+            "icon": "fa-glass-whiskey",
+            "variants": ["Ice"]
         },
         {
-            "id": 13,
-            "name": "Green Tea",
-            "description": "Teh hijau murni yang menyehatkan",
-            "price": 18000,
-            "category": "tea"
+            "id": 26,
+            "name": "Peach Mint Tea",
+            "description": "Teh peach dengan mint",
+            "price": 24200,
+            "category": "non-coffee",
+            "icon": "fa-glass-whiskey",
+            "variants": ["Hot", "Ice"]
         },
         {
-            "id": 14,
-            "name": "Thai Tea",
-            "description": "Teh Thailand dengan rasa yang khas",
-            "price": 25000,
-            "category": "tea"
+            "id": 27,
+            "name": "Matcha",
+            "description": "Matcha premium asli Jepang",
+            "price": 24200,
+            "category": "non-coffee",
+            "icon": "fa-leaf",
+            "variants": ["Hot", "Ice"]
         },
         {
-            "id": 15,
-            "name": "Jasmine Tea",
-            "description": "Teh melati dengan aroma yang harum",
-            "price": 20000,
-            "category": "tea"
+            "id": 28,
+            "name": "Taro",
+            "description": "Minuman dengan rasa taro yang unik",
+            "price": 24200,
+            "category": "non-coffee",
+            "icon": "fa-glass-whiskey",
+            "variants": ["Hot", "Ice"]
         }
     ]
 };
 
 // ✅✅✅ KONFIGURASI TELEGRAM BOT - UBAH DI SINI ✅✅✅
 const TELEGRAM_CONFIG = {
-    botToken: '8005976774:AAFMI-ZmcYPTq9QtTDZQ-lkOMjYEomzcU6k', // Ganti dengan Bot Token dari @BotFather
-    chatId: '7699020587' // Ganti dengan Chat ID kasir
+    botToken: '6543219876:AAEfGHiJkLmNoPqRsTuVwXyZ123456789', // Token dari BotFather
+    chatId: '123456789' // Chat ID kasir
 };
 
 class CoffeeOrderApp {
@@ -129,10 +276,10 @@ class CoffeeOrderApp {
 
     init() {
         try {
-            this.loadMenu();
-            this.setupEventListeners();
-            this.updateCartCount();
             this.loadCartFromStorage();
+            this.renderMenu();
+            this.updateOrderUI();
+            this.setupEventListeners();
         } catch (error) {
             console.error('Error initializing app:', error);
             this.showNotification('Error memuat aplikasi', 'error');
@@ -143,7 +290,6 @@ class CoffeeOrderApp {
         const savedCart = localStorage.getItem('camellia-coffee-cart');
         if (savedCart) {
             this.cart = JSON.parse(savedCart);
-            this.updateCartCount();
         }
     }
 
@@ -151,84 +297,93 @@ class CoffeeOrderApp {
         localStorage.setItem('camellia-coffee-cart', JSON.stringify(this.cart));
     }
 
-    loadMenu() {
+    renderMenu() {
         const menuGrid = document.getElementById('menuGrid');
-        menuGrid.innerHTML = '';
+        const sectionTitle = document.getElementById('sectionTitle');
+        
+        // Update section title
+        sectionTitle.textContent = this.currentCategory === 'all' ? 'All Menu' : 
+                                  this.currentCategory === 'coffee' ? 'Coffee Menu' :
+                                  this.currentCategory === 'brew' ? 'Brew & Manual' : 'Non Coffee Menu';
 
-        let allMenuItems = [];
+        let menuItems = [];
         
         if (this.currentCategory === 'all') {
-            allMenuItems = [
+            menuItems = [
                 ...menuData.coffee,
-                ...menuData['non-coffee'],
-                ...menuData.tea
+                ...menuData.brew,
+                ...menuData['non-coffee']
             ];
         } else {
-            allMenuItems = menuData[this.currentCategory] || [];
+            menuItems = menuData[this.currentCategory] || [];
         }
 
-        allMenuItems.forEach(item => {
-            const menuItem = this.createMenuItem(item);
-            menuGrid.appendChild(menuItem);
-        });
+        menuGrid.innerHTML = menuItems.map(item => `
+            <div class="menu-card">
+                <div class="menu-img">
+                    <i class="fas ${item.icon}"></i>
+                </div>
+                <div class="menu-content">
+                    <h3 class="menu-title">${item.name}</h3>
+                    <p class="menu-description">${item.description}</p>
+                    <div class="menu-price">Rp ${item.price.toLocaleString('id-ID')}</div>
+                    <div class="menu-variants">
+                        ${item.variants.map(variant => 
+                            `<span class="variant-tag ${variant.toLowerCase()}">${variant}</span>`
+                        ).join('')}
+                    </div>
+                    <button class="add-btn" data-id="${item.id}">
+                        <i class="fas fa-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        `).join('');
     }
 
-    createMenuItem(item) {
-        const menuItem = document.createElement('div');
-        menuItem.className = 'menu-item';
-        menuItem.innerHTML = `
-            <i class="fas fa-coffee" style="font-size: 3rem; color: #8B4513; margin-bottom: 15px;"></i>
-            <h3>${item.name}</h3>
-            <p class="description">${item.description}</p>
-            <p class="price">Rp ${item.price.toLocaleString('id-ID')}</p>
-            <button class="add-to-cart" data-id="${item.id}">
-                <i class="fas fa-plus"></i> Tambah ke Keranjang
-            </button>
-        `;
-        return menuItem;
-    }
+    updateOrderUI() {
+        const orderItems = document.getElementById('orderItems');
+        const totalAmount = document.getElementById('totalAmount');
+        const itemCount = document.getElementById('itemCount');
+        const checkoutBtn = document.getElementById('checkoutBtn');
 
-    setupEventListeners() {
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                this.currentCategory = e.target.dataset.category;
-                this.loadMenu();
-            });
-        });
+        if (this.cart.length === 0) {
+            orderItems.innerHTML = '<div class="order-empty">Your cart is empty</div>';
+            totalAmount.textContent = '0';
+            itemCount.textContent = '0 item';
+            checkoutBtn.disabled = true;
+            return;
+        }
 
-        document.getElementById('cartIcon').addEventListener('click', () => {
-            this.toggleCart();
-        });
+        orderItems.innerHTML = this.cart.map(item => `
+            <div class="order-item">
+                <div class="order-item-info">
+                    <div class="order-item-name">${item.name}</div>
+                    <div class="order-item-price">Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</div>
+                    <div class="order-quantity">
+                        <button class="qty-btn minus" data-id="${item.id}">-</button>
+                        <span class="qty-value">${item.quantity}</span>
+                        <button class="qty-btn plus" data-id="${item.id}">+</button>
+                        <button class="remove-btn" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
 
-        document.getElementById('closeCart').addEventListener('click', () => {
-            this.toggleCart();
-        });
-
-        document.getElementById('overlay').addEventListener('click', () => {
-            this.toggleCart();
-        });
-
-        document.getElementById('menuGrid').addEventListener('click', (e) => {
-            if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
-                const button = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
-                const itemId = parseInt(button.dataset.id);
-                this.addToCart(itemId);
-            }
-        });
-
-        document.getElementById('checkoutBtn').addEventListener('click', () => {
-            this.checkout();
-        });
+        const total = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+        
+        totalAmount.textContent = total.toLocaleString('id-ID');
+        itemCount.textContent = `${totalItems} item${totalItems !== 1 ? 's' : ''}`;
+        checkoutBtn.disabled = false;
     }
 
     addToCart(itemId) {
         if (this.isLoading) return;
         
         try {
-            this.isLoading = true;
-            
+            // Find item in all categories
             let item = null;
             for (const category in menuData) {
                 item = menuData[category].find(i => i.id === itemId);
@@ -251,26 +406,20 @@ class CoffeeOrderApp {
                 });
             }
 
-            this.updateCartCount();
             this.saveCartToStorage();
-            this.showNotification(`${item.name} ditambahkan ke keranjang!`, 'success');
+            this.updateOrderUI();
+            this.showNotification(`${item.name} ditambahkan ke keranjang!`);
             
-            if (document.getElementById('cartSidebar').classList.contains('active')) {
-                this.updateCartDisplay();
-            }
         } catch (error) {
             console.error('Error adding to cart:', error);
             this.showNotification('Error menambahkan ke keranjang', 'error');
-        } finally {
-            this.isLoading = false;
         }
     }
 
     removeFromCart(itemId) {
         this.cart = this.cart.filter(item => item.id !== itemId);
-        this.updateCartCount();
-        this.updateCartDisplay();
         this.saveCartToStorage();
+        this.updateOrderUI();
         this.showNotification('Item dihapus dari keranjang', 'info');
     }
 
@@ -281,69 +430,69 @@ class CoffeeOrderApp {
             if (item.quantity <= 0) {
                 this.removeFromCart(itemId);
             } else {
-                this.updateCartCount();
-                this.updateCartDisplay();
                 this.saveCartToStorage();
+                this.updateOrderUI();
             }
         }
     }
 
-    updateCartCount() {
-        const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
-        document.getElementById('cartCount').textContent = totalItems;
-    }
+    setupEventListeners() {
+        // Category navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                e.target.classList.add('active');
+                this.currentCategory = e.target.dataset.category;
+                this.renderMenu();
+            });
+        });
 
-    updateCartDisplay() {
-        const cartItems = document.getElementById('cartItems');
-        const totalAmount = document.getElementById('totalAmount');
+        // Event delegation for menu interactions
+        document.addEventListener('click', (e) => {
+            // Add to cart
+            if (e.target.classList.contains('add-btn') || e.target.closest('.add-btn')) {
+                const button = e.target.classList.contains('add-btn') ? e.target : e.target.closest('.add-btn');
+                const itemId = parseInt(button.dataset.id);
+                this.addToCart(itemId);
+            }
 
-        if (this.cart.length === 0) {
-            cartItems.innerHTML = `
-                <div class="empty-cart">
-                    <i class="fas fa-shopping-cart"></i>
-                    <p>Keranjang masih kosong</p>
-                    <small>Tambahkan menu favorit Anda</small>
-                </div>
-            `;
-            totalAmount.textContent = '0';
-            return;
-        }
+            // Quantity buttons
+            if (e.target.classList.contains('minus') || e.target.closest('.minus')) {
+                const button = e.target.classList.contains('minus') ? e.target : e.target.closest('.minus');
+                const itemId = parseInt(button.dataset.id);
+                this.updateQuantity(itemId, -1);
+            }
 
-        cartItems.innerHTML = this.cart.map(item => `
-            <div class="cart-item">
-                <div class="cart-item-info">
-                    <h4>${item.name}</h4>
-                    <p class="item-price">Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</p>
-                </div>
-                <div class="cart-item-controls">
-                    <button class="quantity-btn" onclick="app.updateQuantity(${item.id}, -1)">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <span style="margin: 0 10px; font-weight: bold; min-width: 30px; text-align: center;">${item.quantity}</span>
-                    <button class="quantity-btn" onclick="app.updateQuantity(${item.id}, 1)">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                    <button class="remove-item" onclick="app.removeFromCart(${item.id})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        `).join('');
+            if (e.target.classList.contains('plus') || e.target.closest('.plus')) {
+                const button = e.target.classList.contains('plus') ? e.target : e.target.closest('.plus');
+                const itemId = parseInt(button.dataset.id);
+                this.updateQuantity(itemId, 1);
+            }
 
-        const total = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        totalAmount.textContent = total.toLocaleString('id-ID');
-    }
+            // Remove item
+            if (e.target.classList.contains('remove-btn') || e.target.closest('.remove-btn')) {
+                const button = e.target.classList.contains('remove-btn') ? e.target : e.target.closest('.remove-btn');
+                const itemId = parseInt(button.dataset.id);
+                this.removeFromCart(itemId);
+            }
+        });
 
-    toggleCart() {
-        const cartSidebar = document.getElementById('cartSidebar');
-        const overlay = document.getElementById('overlay');
+        // Checkout
+        document.getElementById('checkoutBtn').addEventListener('click', () => {
+            this.checkout();
+        });
 
-        cartSidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
+        // Modal
+        document.getElementById('closeModal').addEventListener('click', () => {
+            this.closeModal();
+        });
 
-        if (cartSidebar.classList.contains('active')) {
-            this.updateCartDisplay();
-        }
+        document.getElementById('successModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('successModal')) {
+                this.closeModal();
+            }
+        });
     }
 
     async checkout() {
@@ -356,7 +505,6 @@ class CoffeeOrderApp {
         const orderId = 'ORD' + Date.now().toString().slice(-6);
         const timestamp = new Date().toLocaleString('id-ID');
         
-        // Format pesanan untuk Telegram
         let message = `🆕 *PESANAN BARU - Camellia Coffee* 🆕\n`;
         message += `🆔 *Order ID:* ${orderId}\n`;
         message += `⏰ *Waktu:* ${timestamp}\n`;
@@ -373,24 +521,26 @@ class CoffeeOrderApp {
         message += `\n_📱 Pesanan ini dikirim otomatis dari Camellia Coffee App_`;
 
         try {
+            this.isLoading = true;
+            document.getElementById('checkoutBtn').disabled = true;
+            document.getElementById('checkoutBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+
             // Kirim ke Telegram
             const success = await this.sendToTelegram(message);
             
             if (success) {
-                // Tampilkan modal sukses
-                this.showSuccessModal();
-                
-                // Reset cart
-                this.cart = [];
-                this.updateCartCount();
-                this.updateCartDisplay();
-                this.saveCartToStorage();
-                this.toggleCart();
-                
                 // Simpan riwayat
                 this.saveOrderHistory(orderId, message);
                 
-                this.showNotification('Pesanan terkirim otomatis ke kasir! ✅', 'success');
+                // Reset cart
+                this.cart = [];
+                this.saveCartToStorage();
+                this.updateOrderUI();
+                
+                // Tampilkan modal sukses
+                this.showModal();
+                
+                this.showNotification('Pesanan terkirim otomatis ke kasir! ✅');
             } else {
                 this.showNotification('Gagal mengirim pesanan ke kasir', 'error');
             }
@@ -398,6 +548,10 @@ class CoffeeOrderApp {
         } catch (error) {
             console.error('Error during checkout:', error);
             this.showNotification('Error mengirim pesanan', 'error');
+        } finally {
+            this.isLoading = false;
+            document.getElementById('checkoutBtn').disabled = false;
+            document.getElementById('checkoutBtn').innerHTML = '<i class="fab fa-telegram"></i> Checkout ke Telegram';
         }
     }
 
@@ -426,13 +580,12 @@ class CoffeeOrderApp {
         }
     }
 
-    showSuccessModal() {
-        const modal = document.getElementById('successModal');
-        modal.style.display = 'flex';
-        
-        setTimeout(() => {
-            closeModal();
-        }, 5000);
+    showModal() {
+        document.getElementById('successModal').classList.add('active');
+    }
+
+    closeModal() {
+        document.getElementById('successModal').classList.remove('active');
     }
 
     saveOrderHistory(orderId, message) {
@@ -449,47 +602,34 @@ class CoffeeOrderApp {
     }
 
     showNotification(message, type = 'success') {
+        // Remove existing notification
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+
         const notification = document.createElement('div');
-        const bgColor = type === 'error' ? '#E74C3C' : type === 'info' ? '#3498DB' : '#27AE60';
-        
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${bgColor};
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 1001;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            max-width: 300px;
-        `;
+        notification.className = `notification ${type === 'error' ? 'error' : ''}`;
         notification.textContent = message;
 
         document.body.appendChild(notification);
 
-        setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-        }, 100);
+        // Trigger animation
+        setTimeout(() => notification.classList.add('show'), 100);
 
+        // Auto remove after 3 seconds
         setTimeout(() => {
-            notification.style.transform = 'translateX(400px)';
+            notification.classList.remove('show');
             setTimeout(() => {
                 if (document.body.contains(notification)) {
-                    document.body.removeChild(notification);
+                    notification.remove();
                 }
             }, 300);
         }, 3000);
     }
 }
 
-function closeModal() {
-    const modal = document.getElementById('successModal');
-    modal.style.display = 'none';
-}
-
+// Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new CoffeeOrderApp();
 });
