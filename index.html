@@ -239,28 +239,60 @@
 
   /* TEMP SELECTOR */
   .temp-row {
-    display: none;
+    display: flex;
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px dashed var(--foam);
     gap: 8px;
   }
-  .temp-row.show { display: flex; }
-  .temp-btn {
+  .temp-block {
     flex: 1;
-    padding: 6px 0;
-    border-radius: 8px;
-    border: 1.5px solid var(--foam);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
     background: var(--cream);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
+    border: 1.5px solid var(--foam);
+    border-radius: 10px;
+    padding: 7px 6px;
     transition: all 0.15s;
+  }
+  .temp-block.active-hot { border-color: #e55; background: #fff0f0; }
+  .temp-block.active-ice { border-color: #5ae; background: #f0f8ff; }
+  .temp-label {
+    font-size: 11px;
+    font-weight: 600;
     color: var(--mocha);
   }
-  .temp-btn.selected-hot { border-color: #e55; background: #fff0f0; color: #c33; }
-  .temp-btn.selected-ice { border-color: #5ae; background: #f0f8ff; color: #247; }
+  .temp-block.active-hot .temp-label { color: #c33; }
+  .temp-block.active-ice .temp-label { color: #247; }
+  .temp-qty {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .temp-btn-sm {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: none;
+    background: var(--foam);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+    color: var(--espresso);
+    transition: background 0.12s;
+  }
+  .temp-btn-sm.add { background: var(--caramel); color: white; }
+  .temp-btn-sm:active { opacity: 0.7; }
+  .temp-qty-num {
+    font-size: 13px;
+    font-weight: 700;
+    min-width: 16px;
+    text-align: center;
+    color: var(--espresso);
+  }
 
   /* CART */
   .cart-bar {
@@ -378,9 +410,15 @@
   </div>
 </header>
 
-<div class="customer-bar">
-  <label>👤 Nama:</label>
-  <input type="text" id="customerName" placeholder="Masukkan nama kamu..." autocomplete="off">
+<div class="customer-bar" style="flex-direction:column;align-items:stretch;gap:10px;">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <label style="font-size:13px;font-weight:500;color:var(--mocha);white-space:nowrap;">👤 Nama:</label>
+    <input type="text" id="customerName" placeholder="Masukkan nama kamu..." autocomplete="off">
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:12px;">
+    <label style="font-size:13px;font-weight:500;color:var(--mocha);white-space:nowrap;padding-top:8px;">📍 Alamat:</label>
+    <textarea id="customerAddress" rows="2" placeholder="Alamat pengiriman (opsional)..." style="flex:1;border:1.5px solid var(--latte);border-radius:8px;padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:13px;background:white;color:var(--espresso);outline:none;resize:none;transition:border-color 0.2s;"></textarea>
+  </div>
 </div>
 
 <div class="tab-nav" id="tabNav"></div>
@@ -399,38 +437,35 @@
 const WHATSAPP_NUMBER = "6288216395932"; // ← GANTI NOMOR WA TOKO
 
 const menu = [
-  // ESPRESSO BASED
-  { id: 1, cat: "ESPRESSO BASED", name: "Camelliano", price: 24500, temp: "both", icon: "☕" },
-  { id: 2, cat: "ESPRESSO BASED", name: "Camelliano Rempah", price: 26500, temp: "hot", icon: "🌶️" },
-  { id: 3, cat: "ESPRESSO BASED", name: "Cafe Latte", price: 24500, temp: "both", icon: "☕" },
-  { id: 4, cat: "ESPRESSO BASED", name: "Espresso", price: 15500, temp: "hot", icon: "⚡" },
-  { id: 5, cat: "ESPRESSO BASED", name: "Americano", price: 20000, temp: "both", icon: "☕" },
-  { id: 6, cat: "ESPRESSO BASED", name: "Mocha Latte", price: 24500, temp: "both", icon: "🍫" },
-  { id: 7, cat: "ESPRESSO BASED", name: "Caramel Machiato", price: 26500, temp: "both", icon: "🍮" },
-  { id: 8, cat: "ESPRESSO BASED", name: "Vanilla Latte", price: 26500, temp: "both", icon: "🌿" },
-  { id: 9, cat: "ESPRESSO BASED", name: "Kopi Susu Klasik", price: 26500, temp: "both", icon: "🥛" },
-  { id: 10, cat: "ESPRESSO BASED", name: "Kopi Pandan Latte", price: 24500, temp: "both", icon: "🌿" },
-  { id: 11, cat: "ESPRESSO BASED", name: "Kopi Kurma 250ml", price: 27500, temp: "ice", icon: "🌴" },
-  { id: 12, cat: "ESPRESSO BASED", name: "Kopi Kurma 500ml", price: 50000, temp: "ice", icon: "🌴" },
-  { id: 13, cat: "ESPRESSO BASED", name: "Banana Latte", price: 26500, temp: "both", icon: "🍌" },
-  { id: 14, cat: "ESPRESSO BASED", name: "Butterscotch Latte", price: 26500, temp: "both", icon: "🍬" },
-  { id: 15, cat: "ESPRESSO BASED", name: "Spanish Latte", price: 26500, temp: "both", icon: "☕" },
-  { id: 16, cat: "ESPRESSO BASED", name: "Lemon Coffee", price: 24500, temp: "ice", icon: "🍋" },
-  // MANUAL BREWING
-  { id: 17, cat: "MANUAL BREWING", name: "V60", price: 24500, temp: "hot", icon: "☕" },
-  { id: 18, cat: "MANUAL BREWING", name: "Japanese", price: 26500, temp: "ice", icon: "🧊" },
-  { id: 19, cat: "MANUAL BREWING", name: "Japanese Coffee Lemon", price: 26500, temp: "ice", icon: "🍋" },
-  { id: 20, cat: "MANUAL BREWING", name: "Vietnam Drip", price: 20000, temp: "both", icon: "🇻🇳" },
-  { id: 21, cat: "MANUAL BREWING", name: "Tubruk", price: 20000, temp: "hot", icon: "☕" },
-  // NON COFFEE
-  { id: 22, cat: "NON COFFEE", name: "Chocolate", price: 24500, temp: "both", icon: "🍫" },
-  { id: 23, cat: "NON COFFEE", name: "Chocolate Mint", price: 26500, temp: "both", icon: "🌿" },
-  { id: 24, cat: "NON COFFEE", name: "Red Velvet", price: 24500, temp: "both", icon: "❤️" },
-  { id: 25, cat: "NON COFFEE", name: "Matcha Latte", price: 24500, temp: "both", icon: "🍵" },
-  { id: 26, cat: "NON COFFEE", name: "Taro", price: 24500, temp: "both", icon: "🟣" },
-  { id: 27, cat: "NON COFFEE", name: "Strawberry Mint Tea", price: 24500, temp: "ice", icon: "🍓" },
-  { id: 28, cat: "NON COFFEE", name: "Leci Mint Tea", price: 24500, temp: "ice", icon: "🫒" },
-  { id: 29, cat: "NON COFFEE", name: "Peach Mint Tea", price: 24500, temp: "ice", icon: "🍑" },
+  { id: 1,  cat: "ESPRESSO BASED", name: "Camelliano",           price: 24500, temp: "both", icon: "☕" },
+  { id: 2,  cat: "ESPRESSO BASED", name: "Camelliano Rempah",    price: 26500, temp: "hot",  icon: "🌶️" },
+  { id: 3,  cat: "ESPRESSO BASED", name: "Cafe Latte",           price: 24500, temp: "both", icon: "☕" },
+  { id: 4,  cat: "ESPRESSO BASED", name: "Espresso",             price: 15500, temp: "hot",  icon: "⚡" },
+  { id: 5,  cat: "ESPRESSO BASED", name: "Americano",            price: 20000, temp: "both", icon: "☕" },
+  { id: 6,  cat: "ESPRESSO BASED", name: "Mocha Latte",          price: 24500, temp: "both", icon: "🍫" },
+  { id: 7,  cat: "ESPRESSO BASED", name: "Caramel Machiato",     price: 26500, temp: "both", icon: "🍮" },
+  { id: 8,  cat: "ESPRESSO BASED", name: "Vanilla Latte",        price: 26500, temp: "both", icon: "🌿" },
+  { id: 9,  cat: "ESPRESSO BASED", name: "Kopi Susu Klasik",     price: 26500, temp: "both", icon: "🥛" },
+  { id: 10, cat: "ESPRESSO BASED", name: "Kopi Pandan Latte",    price: 24500, temp: "both", icon: "🌿" },
+  { id: 11, cat: "ESPRESSO BASED", name: "Kopi Kurma 250ml",     price: 27500, temp: "ice",  icon: "🌴" },
+  { id: 12, cat: "ESPRESSO BASED", name: "Kopi Kurma 500ml",     price: 50000, temp: "ice",  icon: "🌴" },
+  { id: 13, cat: "ESPRESSO BASED", name: "Banana Latte",         price: 26500, temp: "both", icon: "🍌" },
+  { id: 14, cat: "ESPRESSO BASED", name: "Butterscotch Latte",   price: 26500, temp: "both", icon: "🍬" },
+  { id: 15, cat: "ESPRESSO BASED", name: "Spanish Latte",        price: 26500, temp: "both", icon: "☕" },
+  { id: 16, cat: "ESPRESSO BASED", name: "Lemon Coffee",         price: 24500, temp: "ice",  icon: "🍋" },
+  { id: 17, cat: "MANUAL BREWING", name: "V60",                  price: 24500, temp: "hot",  icon: "☕" },
+  { id: 18, cat: "MANUAL BREWING", name: "Japanese",             price: 26500, temp: "ice",  icon: "🧊" },
+  { id: 19, cat: "MANUAL BREWING", name: "Japanese Coffee Lemon",price: 26500, temp: "ice",  icon: "🍋" },
+  { id: 20, cat: "MANUAL BREWING", name: "Vietnam Drip",         price: 20000, temp: "both", icon: "🇻🇳" },
+  { id: 21, cat: "MANUAL BREWING", name: "Tubruk",               price: 20000, temp: "hot",  icon: "☕" },
+  { id: 22, cat: "NON COFFEE",     name: "Chocolate",            price: 24500, temp: "both", icon: "🍫" },
+  { id: 23, cat: "NON COFFEE",     name: "Chocolate Mint",       price: 26500, temp: "both", icon: "🌿" },
+  { id: 24, cat: "NON COFFEE",     name: "Red Velvet",           price: 24500, temp: "both", icon: "❤️" },
+  { id: 25, cat: "NON COFFEE",     name: "Matcha Latte",         price: 24500, temp: "both", icon: "🍵" },
+  { id: 26, cat: "NON COFFEE",     name: "Taro",                 price: 24500, temp: "both", icon: "🟣" },
+  { id: 27, cat: "NON COFFEE",     name: "Strawberry Mint Tea",  price: 24500, temp: "ice",  icon: "🍓" },
+  { id: 28, cat: "NON COFFEE",     name: "Leci Mint Tea",        price: 24500, temp: "ice",  icon: "🫒" },
+  { id: 29, cat: "NON COFFEE",     name: "Peach Mint Tea",       price: 24500, temp: "ice",  icon: "🍑" },
 ];
 
 const catLabels = {
@@ -439,16 +474,17 @@ const catLabels = {
   "NON COFFEE": "🍵 Non Coffee"
 };
 
-let cart = {}; // id -> { item, qty, temp }
+// cart key = "itemId_temp" e.g. "5_Hot", "5_Ice", "4_Hot"
+// For fixed-temp items key = "itemId_Hot" or "itemId_Ice"
+let cart = {}; // key -> { item, qty, temp }
 let activeTab = "ESPRESSO BASED";
 
 const categories = [...new Set(menu.map(m => m.cat))];
 
-// Build tabs
-const tabNav = document.getElementById('tabNav');
+const tabNav = document.getElementById("tabNav");
 categories.forEach(cat => {
-  const btn = document.createElement('button');
-  btn.className = 'tab-btn' + (cat === activeTab ? ' active' : '');
+  const btn = document.createElement("button");
+  btn.className = "tab-btn" + (cat === activeTab ? " active" : "");
   btn.textContent = catLabels[cat];
   btn.onclick = () => switchTab(cat);
   tabNav.appendChild(btn);
@@ -456,98 +492,129 @@ categories.forEach(cat => {
 
 function switchTab(cat) {
   activeTab = cat;
-  document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    b.classList.toggle('active', categories[i] === cat);
+  document.querySelectorAll(".tab-btn").forEach((b, i) => {
+    b.classList.toggle("active", categories[i] === cat);
   });
   renderMenu();
 }
 
 function formatRp(n) {
-  return 'Rp ' + n.toLocaleString('id-ID');
+  return "Rp " + n.toLocaleString("id-ID");
+}
+
+function cartKey(id, temp) { return id + "_" + temp; }
+
+function getItemQty(id, temp) {
+  const k = cartKey(id, temp);
+  return cart[k] ? cart[k].qty : 0;
+}
+
+function getTotalQtyForItem(id) {
+  return (getItemQty(id, "Hot") + getItemQty(id, "Ice"));
+}
+
+function changeQty(id, temp, delta, e) {
+  e.stopPropagation();
+  const item = menu.find(m => m.id === id);
+  const k = cartKey(id, temp);
+  if (!cart[k] && delta > 0) {
+    cart[k] = { item, qty: 1, temp };
+  } else if (cart[k]) {
+    cart[k].qty += delta;
+    if (cart[k].qty <= 0) delete cart[k];
+  }
+  renderMenu();
+  renderCart();
 }
 
 function renderMenu() {
-  const container = document.getElementById('menuContainer');
+  const container = document.getElementById("menuContainer");
   const items = menu.filter(m => m.cat === activeTab);
   container.innerHTML = `<h2 class="section-title">${catLabels[activeTab]}</h2><div class="menu-grid" id="grid"></div>`;
-  const grid = document.getElementById('grid');
+  const grid = document.getElementById("grid");
 
   items.forEach(item => {
-    const inCart = cart[item.id];
-    const qty = inCart ? inCart.qty : 0;
+    const totalQty = getTotalQtyForItem(item.id);
+    const card = document.createElement("div");
+    card.className = "menu-card" + (totalQty > 0 ? " selected" : "");
 
-    const card = document.createElement('div');
-    card.className = 'menu-card' + (qty > 0 ? ' selected' : '');
-    card.id = 'card-' + item.id;
+    let tempBadge = item.temp === "hot" ? "🔥 Hot" : item.temp === "ice" ? "🧊 Ice" : "🔥 Hot / 🧊 Ice";
 
-    let tempBadge = item.temp === 'hot' ? '🔥 Hot' : item.temp === 'ice' ? '🧊 Ice' : '🔥 Hot / 🧊 Ice';
-    let tempClass = '';
-
-    const tempRowHtml = (item.temp === 'both') ? `
-      <div class="temp-row ${qty > 0 ? 'show' : ''}" id="temp-${item.id}">
-        <button class="temp-btn ${inCart && inCart.temp === 'Hot' ? 'selected-hot' : ''}" onclick="setTemp(${item.id}, 'Hot', event)">🔥 Hot</button>
-        <button class="temp-btn ${inCart && inCart.temp === 'Ice' ? 'selected-ice' : ''}" onclick="setTemp(${item.id}, 'Ice', event)">🧊 Ice</button>
-      </div>
-    ` : '';
+    let tempRowHtml = "";
+    if (item.temp === "both") {
+      const qH = getItemQty(item.id, "Hot");
+      const qI = getItemQty(item.id, "Ice");
+      tempRowHtml = `
+        <div class="temp-row">
+          <div class="temp-block ${qH > 0 ? "active-hot" : ""}">
+            <div class="temp-label">🔥 Hot</div>
+            <div class="temp-qty">
+              ${qH > 0 ? `<button class="temp-btn-sm" onclick="changeQty(${item.id},'Hot',-1,event)">−</button>` : ""}
+              ${qH > 0 ? `<span class="temp-qty-num">${qH}</span>` : ""}
+              <button class="temp-btn-sm add" onclick="changeQty(${item.id},'Hot',1,event)">+</button>
+            </div>
+          </div>
+          <div class="temp-block ${qI > 0 ? "active-ice" : ""}">
+            <div class="temp-label">🧊 Ice</div>
+            <div class="temp-qty">
+              ${qI > 0 ? `<button class="temp-btn-sm" onclick="changeQty(${item.id},'Ice',-1,event)">−</button>` : ""}
+              ${qI > 0 ? `<span class="temp-qty-num">${qI}</span>` : ""}
+              <button class="temp-btn-sm add" onclick="changeQty(${item.id},'Ice',1,event)">+</button>
+            </div>
+          </div>
+        </div>`;
+    } else {
+      // fixed temp item
+      const fixedTemp = item.temp === "hot" ? "Hot" : "Ice";
+      const q = getItemQty(item.id, fixedTemp);
+      tempRowHtml = `
+        <div class="temp-row" style="justify-content:flex-end;border-top:none;margin-top:4px;padding-top:0;">
+        </div>`;
+      // for fixed temp we show qty in right column
+      card.innerHTML = `
+        <div class="menu-icon">${item.icon}</div>
+        <div class="menu-info">
+          <div class="menu-name">${item.name}</div>
+          <div class="menu-sub"><span class="badge">${tempBadge}</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <div class="menu-price">${formatRp(item.price)}</div>
+          <div class="qty-ctrl">
+            ${q > 0 ? `<button class="qty-btn minus" onclick="changeQty(${item.id},'${fixedTemp}',-1,event)">−</button><span class="qty-num">${q}</span>` : ""}
+            <button class="qty-btn plus" onclick="changeQty(${item.id},'${fixedTemp}',1,event)">+</button>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+      return;
+    }
 
     card.innerHTML = `
-      <div class="menu-icon">${item.icon}</div>
-      <div class="menu-info">
-        <div class="menu-name">${item.name}</div>
-        <div class="menu-sub">
-          <span class="badge">${tempBadge}</span>
+      <div style="display:flex;gap:14px;align-items:flex-start;width:100%;">
+        <div class="menu-icon">${item.icon}</div>
+        <div class="menu-info" style="flex:1;min-width:0;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+            <div class="menu-name">${item.name}</div>
+            <div class="menu-price" style="flex-shrink:0;">${formatRp(item.price)}</div>
+          </div>
+          <div class="menu-sub"><span class="badge">${tempBadge}</span></div>
+          ${tempRowHtml}
         </div>
-        ${tempRowHtml}
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-        <div class="menu-price">${formatRp(item.price)}</div>
-        <div class="qty-ctrl">
-          ${qty > 0 ? `<button class="qty-btn minus" onclick="changeQty(${item.id},-1,event)">−</button><span class="qty-num" id="qty-${item.id}">${qty}</span>` : ''}
-          <button class="qty-btn plus" onclick="changeQty(${item.id},1,event)">+</button>
-        </div>
-      </div>
-    `;
+      </div>`;
     grid.appendChild(card);
   });
 }
 
-function changeQty(id, delta, e) {
-  e.stopPropagation();
-  const item = menu.find(m => m.id === id);
-  if (!cart[id] && delta > 0) {
-    const defaultTemp = item.temp === 'hot' ? 'Hot' : item.temp === 'ice' ? 'Ice' : null;
-    cart[id] = { item, qty: 1, temp: defaultTemp };
-  } else if (cart[id]) {
-    cart[id].qty += delta;
-    if (cart[id].qty <= 0) delete cart[id];
-  }
-  renderMenu();
-  renderCart();
-}
-
-function setTemp(id, temp, e) {
-  e.stopPropagation();
-  if (!cart[id]) {
-    const item = menu.find(m => m.id === id);
-    cart[id] = { item, qty: 1, temp };
-  } else {
-    cart[id].temp = temp;
-  }
-  renderMenu();
-  renderCart();
-}
-
 function renderCart() {
-  const cartContent = document.getElementById('cartContent');
-  const ids = Object.keys(cart);
+  const cartContent = document.getElementById("cartContent");
+  const keys = Object.keys(cart);
 
-  if (ids.length === 0) {
-    cartContent.innerHTML = `<p class="cart-empty" id="emptyMsg">🛒 Belum ada pesanan. Pilih menu dulu yuk!</p>`;
+  if (keys.length === 0) {
+    cartContent.innerHTML = `<p class="cart-empty">🛒 Belum ada pesanan. Pilih menu dulu yuk!</p>`;
     return;
   }
 
-  const total = ids.reduce((s, id) => s + cart[id].item.price * cart[id].qty, 0);
-  const totalQty = ids.reduce((s, id) => s + cart[id].qty, 0);
+  const total = keys.reduce((s, k) => s + cart[k].item.price * cart[k].qty, 0);
+  const totalQty = keys.reduce((s, k) => s + cart[k].qty, 0);
 
   cartContent.innerHTML = `
     <div class="cart-summary">
@@ -563,41 +630,33 @@ function renderCart() {
 }
 
 function sendOrder() {
-  const name = document.getElementById('customerName').value.trim();
+  const name = document.getElementById("customerName").value.trim();
   if (!name) {
     showToast("⚠️ Isi nama kamu dulu ya!");
-    document.getElementById('customerName').focus();
+    document.getElementById("customerName").focus();
     return;
   }
 
-  const ids = Object.keys(cart);
-  if (ids.length === 0) return;
+  const keys = Object.keys(cart);
+  if (keys.length === 0) return;
 
-  // Check all "both" temp items have temp selected
-  for (const id of ids) {
-    const entry = cart[id];
-    if (entry.item.temp === 'both' && !entry.temp) {
-      showToast(`⚠️ Pilih Hot/Ice untuk ${entry.item.name}`);
-      return;
-    }
-  }
+  const address = document.getElementById("customerAddress")?.value?.trim() || "";
+  const note = document.getElementById("orderNote")?.value?.trim() || "";
+  const total = keys.reduce((s, k) => s + cart[k].item.price * cart[k].qty, 0);
 
-  const note = document.getElementById('orderNote')?.value?.trim() || '';
-  const total = ids.reduce((s, id) => s + cart[id].item.price * cart[id].qty, 0);
-
-  let lines = [`Halo Camellia Coffee! ☕\n`];
+  let lines = ["Halo Camellia Coffee! ☕\n"];
   lines.push(`*Nama:* ${name}`);
-  lines.push(`\n*Pesanan:*`);
-  ids.forEach(id => {
-    const { item, qty, temp } = cart[id];
-    const tempStr = (item.temp === 'both' && temp) ? ` (${temp})` : (item.temp === 'hot') ? ' (Hot)' : (item.temp === 'ice') ? ' (Ice)' : '';
-    lines.push(`• ${item.name}${tempStr} x${qty} — ${formatRp(item.price * qty)}`);
+  if (address) lines.push(`*Alamat:* ${address}`);
+  lines.push("\n*Pesanan:*");
+  keys.forEach(k => {
+    const { item, qty, temp } = cart[k];
+    lines.push(`• ${item.name} (${temp}) x${qty} — ${formatRp(item.price * qty)}`);
   });
   lines.push(`\n*Total: ${formatRp(total)}*`);
   if (note) lines.push(`\n*Catatan:* ${note}`);
 
-  const msg = encodeURIComponent(lines.join('\n'));
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+  const msg = encodeURIComponent(lines.join("\n"));
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
 
   showToast("✅ Pesanan dikirim ke WhatsApp!");
   cart = {};
@@ -606,13 +665,12 @@ function sendOrder() {
 }
 
 function showToast(msg) {
-  const t = document.getElementById('toast');
+  const t = document.getElementById("toast");
   t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2500);
 }
 
-// Init
 renderMenu();
 renderCart();
 </script>
